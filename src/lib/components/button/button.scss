@@ -1,0 +1,40 @@
+button {
+    font-family: $font-secondary;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    align-items: center;
+    display: flex;
+
+    &:hover {
+        background-color: #333;
+    }
+
+    .spinner-container {
+        position: relative;
+        width: 24px;
+        height: 16px;
+
+        .spinner {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: 0px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

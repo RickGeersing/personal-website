@@ -1,0 +1,25 @@
+.close-button {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: none;
+    background-color: #000;
+    padding: 4px;
+    transform: rotate(45deg);
+    cursor: pointer;
+
+    >div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 8px);
+        height: 2px;
+        background-color: #fff;
+
+        &:first-child {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+    }
+}

@@ -1,0 +1,13 @@
+label {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-secondary;
+
+    textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+        min-height: 120px;
+    }
+}

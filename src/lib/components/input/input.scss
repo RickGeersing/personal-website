@@ -1,0 +1,11 @@
+label {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-secondary;
+
+    input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+}

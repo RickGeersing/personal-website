@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'NewAmsterdam';
+    src: url('/fonts/NewAmsterdam-Regular.woff2') format('woff2'),
+        url('/fonts/NewAmsterdam-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Add Montserrat-Light font
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/Montserrat-Light.woff2') format('woff2'),
+        url('/fonts/Montserrat-Light.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
