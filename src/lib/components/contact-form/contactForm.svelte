@@ -17,10 +17,11 @@
 	async function handleSubmit(e: SubmitEvent) {
 		loading = true;
 
-		const formData = await fetch('/api/contact', {
+		const response = await fetch('/api/contact', {
 			method: 'POST',
 			body: new FormData(formElement)
-		});
+		}).then((res) => res.json());
+		
 
 		loading = false;
 	}
