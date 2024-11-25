@@ -1,5 +1,4 @@
-@import "./fonts.scss";
-@import "./variables.scss";
+@use '$lib/scss/variables.scss' as *;
 
 * {
     box-sizing: border-box;

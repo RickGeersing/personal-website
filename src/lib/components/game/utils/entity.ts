@@ -200,7 +200,7 @@ export class Entity {
         ctx.lineTo(-this.width / 2, -this.height / 2);
         ctx.lineTo(-this.width / 2, this.height / 2);
         ctx.closePath();
-        ctx.fillStyle = "#000";
+        ctx.fillStyle = "#323232";
         ctx.fill();
         ctx.restore();
     }

@@ -4,11 +4,14 @@
 	import Input from '../input/input.svelte';
 	import Textarea from '../textarea/textarea.svelte';
 	import CloseButton from '../close-button/closeButton.svelte';
+	import { Turnstile } from 'svelte-turnstile';
+	import { PUBLIC_CF_SITE_KEY } from '$env/static/public';
 
 	export let open = true;
 
 	let loading = false;
 	let formElement: HTMLFormElement | undefined;
+	let errors: Record<string, string[]> | undefined;
 
 	function handleClose() {
 		open = false;
@@ -20,8 +23,15 @@
 		const response = await fetch('/api/contact', {
 			method: 'POST',
 			body: new FormData(formElement)
-		}).then((res) => res.json());
-		
+		});
+		const data = await response.json();
+
+		if (!response.ok && data.errors) {
+			errors = data.errors;
+		} else {
+			formElement?.reset();
+			open = false;
+		}
 
 		loading = false;
 	}
@@ -40,9 +50,10 @@
 			<div class="close">
 				<CloseButton on:click={handleClose} />
 			</div>
-			<Input name="name" label="Name" />
-			<Input name="email" label="E-mail" />
-			<Textarea name="message" label="Message" />
+			<Input name="name" label="Name" errors={errors?.name} />
+			<Input name="email" label="E-mail" errors={errors?.email} />
+			<Textarea name="message" label="Message" errors={errors?.message} />
+			<Turnstile siteKey={PUBLIC_CF_SITE_KEY} theme="light" />
 			<div class="buttons">
 				<Button label="Send" {loading} />
 			</div>
@@ -51,5 +62,5 @@
 {/if}
 
 <style lang="scss">
-	@import './contactForm.scss';
+	@use './contactForm.scss';
 </style>

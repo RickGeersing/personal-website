@@ -14,5 +14,5 @@
 </button>
 
 <style lang="scss">
-	@import './closeButton.scss';
+	@use './closeButton.scss';
 </style>
