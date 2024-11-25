@@ -14,7 +14,7 @@
 <label>
 	<span>{label}</span>
 	<textarea {name} {placeholder} on:input={handleInput}></textarea>
-	{#if errors.length > 0}
+	{#if errors?.length > 0}
 		<div class="errors" transition:slide={{ duration: 300 }}>
 			{#each errors as error}
 				<div>{error}</div>

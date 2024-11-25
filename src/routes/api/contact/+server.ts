@@ -19,7 +19,7 @@ const schema = z.object({
     email: z.string()
         .email('Invalid email address')
         .max(50, 'Email must be at most 50 characters long'),
-    message: z.string()
+    message: z.string({ message: 'Please enter a message' })
         .min(10, 'Message must be at least 10 characters long')
         .max(500, 'Message must be at most 500 characters long'),
     token: z.string({ message: 'Please verify ' }),
@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({ request }) => {
         const { name, email, message, token } = schema.parse({
             name: formData.get('name')?.toString(),
             email: formData.get('email')?.toString(),
-            message: formData.get('mes  sage')?.toString(),
+            message: formData.get('message')?.toString(),
             token: formData.get('cf-turnstile-response')?.toString()
         });
 
@@ -50,10 +50,12 @@ export const POST: RequestHandler = async ({ request }) => {
             from: 'Rick Geersing <info@rickgeersing.com>',
             to: ['rickgeersing@mac.com'],
             subject: 'New message from your website',
-            text: `
-                Name: ${DOMPurify.sanitize(name)}
-                Email: ${DOMPurify.sanitize(email)}
-                Message: ${DOMPurify.sanitize(message)}
+            html: `
+                <h3>New message from your website</h3><br/>
+                <strong>Name:</strong> ${DOMPurify.sanitize(name)}<br/>
+                <strong>Email:</strong> ${DOMPurify.sanitize(email)}<br/>
+                <strong>Message:</strong><br/>
+                ${DOMPurify.sanitize(message)}
             `,
         })
 
