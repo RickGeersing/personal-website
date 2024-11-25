@@ -80,9 +80,11 @@
 		}
 
 		.background-glass {
-			position: absolute;
+			position: fixed;
 			height: 100%;
 			width: 100%;
+			top: 0;
+			left: 0;
 			background: rgba(255, 255, 255, 0.2);
 			border-radius: 16px;
 			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
