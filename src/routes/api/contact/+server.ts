@@ -51,10 +51,10 @@ export const POST: RequestHandler = async ({ request }) => {
             to: ['rickgeersing@mac.com'],
             subject: 'New message from your website',
             html: `
-                <h3>New message from your website</h3><br/>
-                <strong>Name:</strong> ${DOMPurify.sanitize(name)}<br/>
-                <strong>Email:</strong> ${DOMPurify.sanitize(email)}<br/>
-                <strong>Message:</strong><br/>
+                <h3>New message from your website</h3>
+                <b>Name:</b> ${DOMPurify.sanitize(name)}<br/>
+                <b>Email:</b> ${DOMPurify.sanitize(email)}<br/>
+                <b>Message:</b><br/>
                 ${DOMPurify.sanitize(message)}
             `,
         })
