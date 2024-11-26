@@ -13,6 +13,7 @@
 	const mousePosition = new Vector(0, 0);
 
 	let entities: Entity[] = [];
+	let obstacles: Obstacle[] = [];
 
 	function main() {
 		for (let i = 0; i < 500; i++) {
@@ -22,6 +23,31 @@
 				)
 			);
 		}
+
+		obstacles.push(
+			new TextObstacle({
+				text: 'Rick Geersing',
+				position: new Vector(window.innerWidth / 2, window.innerHeight / 2),
+				fontFamily: 'NewAmsterdam',
+				minFontSize: { size: 60, width: 320 },
+				maxFontSize: { size: 120, width: 1280 }
+			}),
+			new TextObstacle({
+				text: 'Software Developer',
+				position: new Vector(window.innerWidth / 2, window.innerHeight / 2),
+				fontFamily: 'Montserrat',
+				minFontSize: { size: 25, width: 320 },
+				maxFontSize: { size: 45, width: 1280 }
+			}),
+			new TextButtonObstacle({
+				text: 'Contact',
+				position: new Vector(window.innerWidth / 2, window.innerHeight / 2),
+				fontFamily: 'Montserrat',
+				minFontSize: { size: 20, width: 556 },
+				maxFontSize: { size: 30, width: 1280 },
+				onClick: () => {}
+			})
+		);
 
 		scale();
 		loop();
@@ -34,6 +60,14 @@
 
 		ctx.canvas.setAttribute('width', window.innerWidth.toString());
 		ctx.canvas.setAttribute('height', window.innerHeight.toString());
+
+		const padding = clamp(ctx, 60, 80, 556, 1280);
+		obstacles.forEach((obstacle, i) => {
+			obstacle.position = new Vector(
+				window.innerWidth / 2,
+				window.innerHeight / 2 - 50 + (i !== 2 ? i * padding : padding * 2)
+			);
+		});
 	}
 
 	function loop() {
@@ -51,9 +85,18 @@
 		ctx.fillStyle = '#fff';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-		entities.forEach((entity) => {
-			entity.update(ctx, entities, [], mousePosition);
+		obstacles.forEach((obstacles) => {
+			obstacles.update(ctx);
 		});
+
+		entities.forEach((entity) => {
+			entity.update(ctx, entities, obstacles, mousePosition);
+		});
+	}
+
+	function handleMouseOver(event: MouseEvent) {
+		mousePosition.x = event.clientX;
+		mousePosition.y = event.clientY;
 	}
 
 	onMount(main);
@@ -61,7 +104,7 @@
 
 <svelte:window on:resize={scale} />
 
-<canvas on:focus bind:this={canvas}></canvas>
+<canvas on:focus bind:this={canvas} on:mousemove={handleMouseOver}></canvas>
 
 <style lang="scss">
 	canvas {

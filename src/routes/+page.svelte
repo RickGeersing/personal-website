@@ -15,7 +15,6 @@
 	<div class="background">
 		<Game />
 	</div>
-	<div class="background-glass"></div>
 	<div class="content">
 		<h1>Rick Geersing</h1>
 		<h2>Software Developer</h2>
@@ -43,6 +42,7 @@
 			justify-content: center;
 			align-items: center;
 			gap: 5px;
+			pointer-events: none;
 
 			h1 {
 				margin: 0;
@@ -77,19 +77,10 @@
 					font-size: 20px;
 				}
 			}
-		}
 
-		.background-glass {
-			position: fixed;
-			height: 100%;
-			width: 100%;
-			top: 0;
-			left: 0;
-			background: rgba(255, 255, 255, 0.2);
-			border-radius: 16px;
-			box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-			backdrop-filter: blur(5px);
-			-webkit-backdrop-filter: blur(5px);
+			:global(button) {
+				pointer-events: auto;
+			}
 		}
 	}
 </style>

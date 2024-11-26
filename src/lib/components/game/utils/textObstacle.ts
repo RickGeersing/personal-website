@@ -87,7 +87,7 @@ export class TextObstacle extends Obstacle {
         this.height = fontSize;
 
         // Draw the text at the origin of the translated context
-        ctx.fillText(this.text, 0, 0);
+        // ctx.fillText(this.text, 0, 0);
 
         // Draw the rectangle around the text
         if (this.debug) {
@@ -149,22 +149,6 @@ export class TextButtonObstacle extends TextObstacle {
         const metrics = ctx.measureText(this.text);
         this.width = metrics.width;
         this.height = fontSize;
-
-        const rectWidth = this.width + this.paddingBlock * 2;
-        const rectHeight = this.height + this.paddingInline * 2;
-
-        ctx.strokeStyle = "#000";
-        ctx.lineWidth = 2;
-        ctx.fillStyle = "#000";
-        ctx.beginPath();
-        ctx.roundRect(-rectWidth / 2, -rectHeight / 2, rectWidth, rectHeight, 4);
-        ctx.fill();
-        ctx.stroke();
-
-
-        ctx.fillStyle = "#fff";
-        ctx.fillText(this.text, 0, 0);
-
 
         ctx.restore();
     }

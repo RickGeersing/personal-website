@@ -16,7 +16,4 @@ export default defineConfig({
 			'@scss': path.resolve('./src/lib/scss'),
 		}
 	},
-	server: {
-		port: 5174,
-	}
 });
