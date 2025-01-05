@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { createBubbler } from 'svelte/legacy';
+
+	const bubble = createBubbler();
 	import { getContext, onMount } from 'svelte';
 	import { Entity } from './utils/entity';
 	import { Vector } from './utils/vector';
 	import { Obstacle, TextButtonObstacle, TextObstacle } from './utils/textObstacle';
 	import { clamp } from './utils/clamp';
 
-	let canvas: HTMLCanvasElement;
+	let canvas: HTMLCanvasElement = $state();
 	let last: number = 0;
 
 	const fps = 60;
@@ -102,9 +105,9 @@
 	onMount(main);
 </script>
 
-<svelte:window on:resize={scale} />
+<svelte:window onresize={scale} />
 
-<canvas on:focus bind:this={canvas} on:mousemove={handleMouseOver}></canvas>
+<canvas onfocus={bubble('focus')} bind:this={canvas} onmousemove={handleMouseOver}></canvas>
 
 <style lang="scss">
 	canvas {

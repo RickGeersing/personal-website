@@ -1,36 +1,50 @@
 @use '../../scss/variables.scss' as *;
 
 button {
-    font-family: $font-secondary;
-    background-color: #000;
-    color: #fff;
-    padding: 10px 20px;
     border: none;
+    padding: 0 0 3px 0;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    align-items: center;
-    display: flex;
+    background: linear-gradient(to bottom, transparent, #686868);
 
-    &:hover {
-        background-color: #333;
+    &.mouse-down {
+        .content {
+            top: 1px;
+        }
     }
 
-    .spinner-container {
+    .content {
         position: relative;
-        width: 24px;
-        height: 16px;
+        font-family: $font-secondary;
+        background-color: #000;
+        color: #fff;
+        padding: 10px 20px;
+        border: 0px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        align-items: center;
+        display: flex;
+        transition: all 0.3s;
 
-        .spinner {
-            position: absolute;
-            width: 16px;
+        &:hover {
+            background-color: #333;
+        }
+
+        .spinner-container {
+            position: relative;
+            width: 24px;
             height: 16px;
-            right: 0px;
-            border: 1px solid #fff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
+
+            .spinner {
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                right: 0px;
+                border: 1px solid #fff;
+                border-radius: 50%;
+                border-top-color: transparent;
+                animation: spin 1s linear infinite;
+            }
         }
     }
 }

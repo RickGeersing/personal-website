@@ -78,7 +78,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
     } catch (error) {
         if (error instanceof z.ZodError) {
-            console.log(error.flatten().fieldErrors);
             return json({
                 success: false,
                 message: 'Validation failed',

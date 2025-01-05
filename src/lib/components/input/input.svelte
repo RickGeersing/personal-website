@@ -1,11 +1,21 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	export let name: string;
-	export let label: string;
-	export let type = 'text';
-	export let placeholder = '';
-	export let errors: string[] = [];
+	interface Props {
+		name: string;
+		label: string;
+		type?: string;
+		placeholder?: string;
+		errors?: string[];
+	}
+
+	let {
+		name,
+		label,
+		type = 'text',
+		placeholder = '',
+		errors = $bindable([])
+	}: Props = $props();
 
 	function handleInput() {
 		errors = [];
@@ -14,7 +24,7 @@
 
 <label>
 	<span>{label}</span>
-	<input {name} {type} {placeholder} on:input={handleInput} />
+	<input {name} {type} {placeholder} oninput={handleInput} />
 	{#if errors?.length > 0}
 		<div class="errors" transition:slide={{ duration: 300 }}>
 			{#each errors as error}

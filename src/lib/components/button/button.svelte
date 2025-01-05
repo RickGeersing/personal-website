@@ -1,24 +1,45 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { fade, slide } from 'svelte/transition';
 
-	export let label: string;
-	export let loading = false;
+	type Props = {
+		label: string;
+		loading?: boolean;
+		type?: 'button' | 'submit' | 'reset';
+		onclick?: () => void;
+	};
 
-	const dispatch = createEventDispatcher();
+	let { label, loading = false, type = 'button', onclick }: Props = $props();
+	let mouseDown = $state(false);
 
-	function handleClick() {
-		dispatch('click');
+	function onMouseDown() {
+		mouseDown = true;
+	}
+
+	function onMouseUp() {
+		mouseDown = false;
 	}
 </script>
 
-<button on:click={handleClick} class:loading>
-	{label}
-	{#if loading}
-		<div transition:slide|local={{ axis: 'x', duration: 300 }} class="spinner-container">
-			<div in:fade={{ duration: 50, delay: 300 }} out:fade={{ duration: 50 }} class="spinner"></div>
-		</div>
-	{/if}
+<button
+	{type}
+	{onclick}
+	class:loading
+	class:mouse-down={mouseDown}
+	onmousedown={onMouseDown}
+	onmouseup={onMouseUp}
+>
+	<div class="content">
+		{label}
+		{#if loading}
+			<div transition:slide|local={{ axis: 'x', duration: 300 }} class="spinner-container">
+				<div
+					in:fade={{ duration: 50, delay: 300 }}
+					out:fade={{ duration: 50 }}
+					class="spinner"
+				></div>
+			</div>
+		{/if}
+	</div>
 </button>
 
 <style lang="scss">

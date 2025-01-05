@@ -18,7 +18,7 @@
 	<div class="content">
 		<h1>Rick Geersing</h1>
 		<h2>Software Developer</h2>
-		<Button label="Get in contact" on:click={handleClick} />
+		<Button label="Get in contact" onclick={handleClick} />
 	</div>
 </div>
 

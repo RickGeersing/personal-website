@@ -7,18 +7,31 @@
 	import { Turnstile } from 'svelte-turnstile';
 	import { PUBLIC_CF_SITE_KEY } from '$env/static/public';
 
-	export let open = true;
+	interface Props {
+		open?: boolean;
+	}
 
-	let loading = false;
-	let formElement: HTMLFormElement | undefined;
-	let errors: Record<string, string[]> | undefined;
+	let { open = $bindable(true) }: Props = $props();
+
+	let loading = $state(false);
+	let formElement: HTMLFormElement | undefined = $state();
+	let errors: Record<string, string[]> | undefined = $state();
+
+	function self(fn: Function) {
+		return (e: Event) => {
+			if (e.target === e.currentTarget) fn(e);
+		};
+	}
 
 	function handleClose() {
+		errors = undefined;
 		open = false;
 	}
 
 	async function handleSubmit(e: SubmitEvent) {
+		e.preventDefault();
 		loading = true;
+		errors = undefined;
 
 		const response = await fetch('/api/contact', {
 			method: 'POST',
@@ -26,7 +39,7 @@
 		});
 		const data = await response.json();
 
-		if (!response.ok && data.errors) {
+		if (!data.success && data.errors) {
 			errors = data.errors;
 		} else {
 			formElement?.reset();
@@ -40,22 +53,22 @@
 {#if open}
 	<div
 		class="contact-form"
-		on:click|self={handleClose}
-		on:keydown|self={handleClose}
+		onclick={self(handleClose)}
+		onkeydown={self(handleClose)}
 		role="button"
 		tabindex="0"
 		transition:fade={{ duration: 200 }}
 	>
-		<form bind:this={formElement} on:submit|preventDefault={handleSubmit}>
+		<form bind:this={formElement} onsubmit={handleSubmit}>
 			<div class="close">
-				<CloseButton on:click={handleClose} />
+				<CloseButton onclick={handleClose} />
 			</div>
 			<Input name="name" label="Name" errors={errors?.name} />
 			<Input name="email" label="E-mail" errors={errors?.email} />
 			<Textarea name="message" label="Message" errors={errors?.message} />
 			<Turnstile siteKey={PUBLIC_CF_SITE_KEY} theme="light" />
 			<div class="buttons">
-				<Button label="Send" {loading} />
+				<Button type="submit" label="Send" {loading} />
 			</div>
 		</form>
 	</div>

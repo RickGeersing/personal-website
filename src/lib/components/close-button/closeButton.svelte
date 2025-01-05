@@ -1,14 +1,8 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
-
-	function handleClick() {
-		dispatch('click');
-	}
+	let { onclick } = $props();
 </script>
 
-<button class="close-button" on:click={handleClick}>
+<button class="close-button" {onclick} type="button" aria-label="Close">
 	<div></div>
 	<div></div>
 </button>

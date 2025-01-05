@@ -1,9 +1,14 @@
-<script>
+<script lang="ts">
 	import '$lib/scss/fonts.scss';
 	import '$lib/scss/globals.scss';
 	import ContactForm from '$lib/components/contact-form/contactForm.svelte';
 	import { writable } from 'svelte/store';
 	import { setContext } from 'svelte';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 
 	let showContact = writable(false);
 
@@ -17,7 +22,7 @@
 </svelte:head>
 
 <main>
-	<slot></slot>
+	{@render children?.()}
 </main>
 
 <ContactForm bind:open={$showContact} />
