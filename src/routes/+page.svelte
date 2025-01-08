@@ -3,6 +3,8 @@
 	import Game from '$lib/components/game/game.svelte';
 	import type { Writable } from 'svelte/store';
 	import { getContext } from 'svelte';
+	import LinkedInLink from '$lib/components/linkedin-link/linkedInLink.svelte';
+	import GithubLink from '$lib/components/github-link/githubLink.svelte';
 
 	const showContact = getContext<Writable<boolean>>('showContact');
 
@@ -19,6 +21,10 @@
 		<h1>Rick Geersing</h1>
 		<h2>Software Developer</h2>
 		<Button label="Get in contact" onclick={handleClick} />
+		<div class="socials">
+			<LinkedInLink />
+			<GithubLink />
+		</div>
 	</div>
 </div>
 
@@ -30,6 +36,7 @@
 	}
 
 	.hero {
+		position: relative;
 		height: 100vh;
 		width: 100%;
 
@@ -42,7 +49,6 @@
 			justify-content: center;
 			align-items: center;
 			gap: 5px;
-			pointer-events: none;
 
 			h1 {
 				margin: 0;
@@ -80,6 +86,13 @@
 
 			:global(button) {
 				pointer-events: auto;
+			}
+
+			.socials {
+				margin-top: 20px;
+				display: flex;
+				flex-direction: row;
+				gap: 10px;
 			}
 		}
 	}
