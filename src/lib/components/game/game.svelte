@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { createBubbler } from 'svelte/legacy';
-
-	const bubble = createBubbler();
 	import { getContext, onMount } from 'svelte';
 	import { Entity } from './utils/entity';
 	import { Vector } from './utils/vector';
@@ -107,7 +104,7 @@
 
 <svelte:window onresize={scale} />
 
-<canvas onfocus={bubble('focus')} bind:this={canvas} onmousemove={handleMouseOver}></canvas>
+<canvas bind:this={canvas} onmousemove={handleMouseOver}></canvas>
 
 <style lang="scss">
 	canvas {
