@@ -54,6 +54,7 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			pointer-events: none;
 			gap: 5px;
 
 			h1 {
@@ -99,6 +100,7 @@
 				display: flex;
 				flex-direction: row;
 				gap: 10px;
+				pointer-events: auto;
 			}
 		}
 	}
