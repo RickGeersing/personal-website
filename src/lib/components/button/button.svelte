@@ -27,6 +27,7 @@
 	class:mouse-down={mouseDown}
 	onmousedown={onMouseDown}
 	onmouseup={onMouseUp}
+	onmouseleave={onMouseUp}
 >
 	<div class="content">
 		{label}

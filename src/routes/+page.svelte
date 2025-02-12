@@ -5,6 +5,7 @@
 	import { getContext } from 'svelte';
 	import LinkedInLink from '$lib/components/linkedin-link/linkedInLink.svelte';
 	import GithubLink from '$lib/components/github-link/githubLink.svelte';
+	import MetaTags from '$lib/components/meta-tags/metaTags.svelte';
 
 	const showContact = getContext<Writable<boolean>>('showContact');
 
@@ -12,6 +13,11 @@
 		showContact.set(true);
 	}
 </script>
+
+<MetaTags
+	title="Rick Geersing – Software Developer"
+	description="Personal website of Rick Geersing, a passionate software developer dedicated to innovative and efficient solutions."
+/>
 
 <div class="hero">
 	<div class="background">
