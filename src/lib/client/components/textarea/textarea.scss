@@ -1,0 +1,26 @@
+@use '../../scss/variables.scss' as *;
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-secondary;
+    font-size: 12px;
+
+    textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: none;
+        min-height: 120px;
+        z-index: 1;
+        background-color: #f2f2f2;
+    }
+
+    .errors {
+        background-color: rgb(221, 178, 178);
+        color: #000;
+        border-radius: 5px;
+        padding: 15px 5px 5px;
+        margin-top: -10px;
+    }
+}

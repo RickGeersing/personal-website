@@ -7,7 +7,13 @@ const config = {
 	// for more information about preprocessors
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			$src: 'src',
+			$shared: 'src/lib/shared',
+			$server: 'src/lib/server',
+			$client: 'src/lib/client',
+		}
 	},
 };
 

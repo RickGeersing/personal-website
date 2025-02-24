@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Button from '$lib/components/button/button.svelte';
-	import Game from '$lib/components/game/game.svelte';
+	import Button from '$client/components/button/button.svelte';
+	import Game from '$client/components/game/game.svelte';
 	import type { Writable } from 'svelte/store';
 	import { getContext } from 'svelte';
-	import LinkedInLink from '$lib/components/linkedin-link/linkedInLink.svelte';
-	import GithubLink from '$lib/components/github-link/githubLink.svelte';
-	import MetaTags from '$lib/components/meta-tags/metaTags.svelte';
+	import LinkedInLink from '$client/components/linkedin-link/linkedInLink.svelte';
+	import GithubLink from '$client/components/github-link/githubLink.svelte';
+	import MetaTags from '$client/components/meta-tags/metaTags.svelte';
 
 	const showContact = getContext<Writable<boolean>>('showContact');
 

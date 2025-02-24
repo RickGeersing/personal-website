@@ -1,7 +1,7 @@
 <script lang="ts">
-	import '$lib/scss/fonts.scss';
-	import '$lib/scss/globals.scss';
-	import ContactForm from '$lib/components/contact-form/contactForm.svelte';
+	import '$client/scss/fonts.scss';
+	import '$client/scss/globals.scss';
+	import ContactForm from '$client/components/contact-form/contactForm.svelte';
 	import { writable } from 'svelte/store';
 	import { setContext } from 'svelte';
 	interface Props {
