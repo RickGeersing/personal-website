@@ -25,6 +25,7 @@ const generateToken = async (user: UserPayload, secret: string, expiresIn: Date)
 const verifyToken = async (token: string, secret: string): Promise<TokenPayload> => {
     const encodedSecret = new TextEncoder().encode(secret);
     const { payload } = await jwtVerify(token, encodedSecret, { algorithms: ['HS256'] });
+
     return payload as TokenPayload;
 }
 

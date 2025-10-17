@@ -12,6 +12,14 @@ button {
         }
     }
 
+    &.full-width {
+        width: 100%;
+
+        .content {
+            justify-content: center;
+        }
+    }
+
     .content {
         position: relative;
         font-family: $font-secondary;
@@ -21,7 +29,7 @@ button {
         border: 0px;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 1rem;
         align-items: center;
         display: flex;
         transition: all 0.3s;

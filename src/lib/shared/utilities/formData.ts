@@ -15,9 +15,19 @@ export function validateFormData<T extends z.ZodRawShape>(formData: FormData, sc
     return schema.parse(object)
 }
 
+export async function validateJsonData<T extends z.ZodRawShape>(request: Request, schema: z.ZodObject<T>) {
+    const data = await request.json();
+    return schema.parse(data)
+}
+
+
 export function convertFormDataToObject(formData: FormData) {
     return formData.entries().reduce((acc: FormDataObject, [key, value]) => {
         const parts = key.split('.')
+
+        if (value === '') {
+            return acc
+        }
 
         parts.reduce((acc: FormDataObject, part, index) => {
             if (index === parts.length - 1) {

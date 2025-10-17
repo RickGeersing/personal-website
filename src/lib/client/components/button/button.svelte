@@ -5,10 +5,11 @@
 		label: string;
 		loading?: boolean;
 		type?: 'button' | 'submit' | 'reset';
+		fullWidth?: boolean;
 		onclick?: () => void;
 	};
 
-	let { label, loading = false, type = 'button', onclick }: Props = $props();
+	let { label, loading = false, fullWidth = false, type = 'button', onclick }: Props = $props();
 	let mouseDown = $state(false);
 
 	function onMouseDown() {
@@ -25,6 +26,7 @@
 	{onclick}
 	class:loading
 	class:mouse-down={mouseDown}
+	class:full-width={fullWidth}
 	onmousedown={onMouseDown}
 	onmouseup={onMouseUp}
 	onmouseleave={onMouseUp}

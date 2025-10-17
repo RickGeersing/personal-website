@@ -3,15 +3,26 @@ type JsonResponse = {
     body: unknown;
     success: boolean;
     message?: string;
+    code?: string;
 }
 
-export const jsonResponse = ({ status, body, success, message }: JsonResponse): Response => {
+export const jsonResponse = ({ status, body, success, message, code }: JsonResponse): Response => {
     return Response.json({
         body,
         success,
         message,
+        code,
     }, {
         status,
+    });
+}
+
+export const invalidRequestResponse = (): Response => {
+    return jsonResponse({
+        status: 400,
+        body: null,
+        success: false,
+        message: 'Invalid request.',
     });
 }
 
@@ -30,5 +41,23 @@ export const forbiddenResponse = (): Response => {
         body: null,
         success: false,
         message: 'You do not have permission to access this resource.',
+    });
+}
+
+export const notFoundResponse = (): Response => {
+    return jsonResponse({
+        status: 404,
+        body: null,
+        success: false,
+        message: 'Resource not found.',
+    });
+}
+
+export const internalServerErrorResponse = (): Response => {
+    return jsonResponse({
+        status: 500,
+        body: null,
+        success: false,
+        message: 'An internal server error occurred.',
     });
 }

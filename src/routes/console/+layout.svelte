@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
-	import Button from '$client/components/button/button.svelte';
 	import { goto } from '$app/navigation';
 	import { route } from '$shared/utilities/routes';
-	import { Role } from '@prisma/client';
+	import { Dumbbell, Gauge, ListTodo, LogOut, Settings, Users } from 'lucide-svelte';
+	import Toast from '$src/lib/client/components/toast/toast.svelte';
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
 
@@ -25,22 +25,47 @@
 <main>
 	<nav>
 		<ul>
-			<li><a href="/console">Dashboard</a></li>
-			{#if data?.session?.role === Role.ADMIN}
-				<li><a href="/console/users">Users</a></li>
+			<li>
+				<a href="/console">
+					<Gauge strokeWidth="1" />
+				</a>
+			</li>
+			{#if data?.session?.role === 'ADMIN'}
+				<li>
+					<a href="/console/users">
+						<Users strokeWidth="1" />
+					</a>
+				</li>
 			{/if}
+			<li>
+				<a href="/console/tasks">
+					<ListTodo strokeWidth="1" />
+				</a>
+			</li>
+			<li>
+				<a href="/console/gym">
+					<Dumbbell strokeWidth="1" />
+				</a>
+			</li>
 		</ul>
 
 		<ul>
-			<li><a href="/console/settings">Settings</a></li>
 			<li>
-				<button onclick={handleLogout}>Logout</button>
+				<a href="/console/settings">
+					<Settings strokeWidth="1" />
+				</a>
+			</li>
+			<li>
+				<button onclick={handleLogout}>
+					<LogOut strokeWidth="1" />
+				</button>
 			</li>
 		</ul>
 	</nav>
 	<div class="content">
 		{@render children()}
 	</div>
+	<Toast />
 </main>
 
 <style lang="scss">
@@ -56,11 +81,11 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		border-right: 1px solid #ccc;
+		border-right: 1px solid #f0f0f0;
 		height: 100vh;
-		max-width: 250px;
+		max-width: 80px;
 		width: 100%;
-		padding-block: 50px;
+		padding-block: 1rem;
 	}
 
 	ul {
@@ -74,10 +99,12 @@
 
 		a,
 		button {
-			display: block;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			color: #000;
 			text-decoration: none;
-			padding: 10px 20px;
+			padding: 20px;
 			border: none;
 			background: transparent;
 			font-family: $font-secondary;

@@ -14,6 +14,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@scss': path.resolve('./src/lib/scss'),
+			".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
 		}
 	},
 });

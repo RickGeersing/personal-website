@@ -74,7 +74,7 @@
 			display: flex;
 			flex-direction: column;
 			gap: 15px;
-			width: 300px;
+			width: 400px;
 
 			.error {
 				font-family: $font-secondary;

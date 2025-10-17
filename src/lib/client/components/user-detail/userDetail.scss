@@ -1,0 +1,25 @@
+.user-detail {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+
+    .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 5rem;
+
+        .row {
+            display: flex;
+            width: 100%;
+            gap: 20px;
+        }
+    }
+
+    .sidebar {
+        width: 400px;
+        border-left: 1px solid #f0f0f0;
+        padding: 5rem 2rem;
+    }
+}

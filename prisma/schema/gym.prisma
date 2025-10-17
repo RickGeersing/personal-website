@@ -1,0 +1,61 @@
+model GymSession {
+    id        String               @id @default(cuid())
+    userId    String
+    user      User                 @relation(fields: [userId], references: [id])
+    startDate DateTime
+    endDate   DateTime
+    createdAt DateTime             @default(now())
+    updatedAt DateTime             @updatedAt
+    exercises GymSessionExercise[]
+    sets      GymSet[]
+}
+
+model GymMuscleGroup {
+    id        String                        @id @default(cuid())
+    name      String
+    createdAt DateTime                      @default(now())
+    updatedAt DateTime                      @updatedAt
+    exercises GymExerciseOnGymMuscleGroup[]
+}
+
+model GymExercise {
+    id               String                        @id @default(cuid())
+    name             String
+    createdAt        DateTime                      @default(now())
+    updatedAt        DateTime                      @updatedAt
+    muscleGroups     GymExerciseOnGymMuscleGroup[]
+    sessionExercises GymSessionExercise[]
+    sets             GymSet[]
+}
+
+model GymExerciseOnGymMuscleGroup {
+    id            String         @id @default(cuid())
+    exerciseId    String
+    exercise      GymExercise    @relation(fields: [exerciseId], references: [id])
+    muscleGroupId String
+    muscleGroup   GymMuscleGroup @relation(fields: [muscleGroupId], references: [id])
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+}
+
+model GymSessionExercise {
+    id         String      @id @default(cuid())
+    sessionId  String
+    session    GymSession  @relation(fields: [sessionId], references: [id])
+    exerciseId String
+    exercise   GymExercise @relation(fields: [exerciseId], references: [id])
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+}
+
+model GymSet {
+    id         String      @id @default(cuid())
+    sessionId  String
+    session    GymSession  @relation(fields: [sessionId], references: [id])
+    exerciseId String
+    exercise   GymExercise @relation(fields: [exerciseId], references: [id])
+    reps       Int
+    weight     Float
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @updatedAt
+}

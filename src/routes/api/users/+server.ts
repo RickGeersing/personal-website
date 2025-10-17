@@ -3,6 +3,9 @@ import { hasSession } from '$server/session/managment';
 import { forbiddenResponse, jsonResponse, unauthorizedResponse } from '$server/utilities/response';
 import { Role, type Prisma } from '@prisma/client';
 import type { RequestHandler } from './$types';
+import { validateJsonData } from '$src/lib/shared/utilities/formData';
+import { userSchema } from '$src/lib/shared/schemas/userSchema';
+import { hash } from 'argon2';
 
 export const GET: RequestHandler = async ({ locals, url }) => {
     if (!hasSession(locals)) {
@@ -47,3 +50,64 @@ export const GET: RequestHandler = async ({ locals, url }) => {
         success: true,
     });
 };
+
+export const POST: RequestHandler = async ({ locals, request }) => {
+    if (!hasSession(locals)) {
+        return unauthorizedResponse();
+    }
+
+    if (locals.session?.role !== Role.ADMIN) {
+        return forbiddenResponse();
+    }
+
+    try {
+        const data = await validateJsonData(request, userSchema);
+
+        const userExists = await prismaClient.user.findFirst({
+            where: {
+                email: data.email,
+            }
+        });
+
+        if (userExists) {
+            return jsonResponse({
+                status: 400,
+                body: {
+                    message: 'User already exists',
+                },
+                code: 'USER_EXISTS',
+                success: false,
+            });
+        }
+
+        const hashedPassword = await hash(data.password);
+        const user = await prismaClient.user.create({
+            data: {
+                email: data.email,
+                password: hashedPassword,
+                role: data.role,
+            },
+            select: {
+                id: true,
+                email: true,
+                role: true,
+            }
+        });
+
+        return jsonResponse({
+            status: 201,
+            body: user,
+            success: true,
+            code: 'USER_CREATED',
+        });
+    } catch {
+        return jsonResponse({
+            status: 400,
+            body: {
+                message: 'Invalid data',
+            },
+            code: 'INVALID_DATA',
+            success: false,
+        });
+    }
+}

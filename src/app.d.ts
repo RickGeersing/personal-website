@@ -15,21 +15,4 @@ declare global {
 	}
 }
 
-export type ResponseData<T> = {
-	message?: string;
-	body: T;
-	success: boolean;
-};
-
-export type FindManyResponse<T> = ResponseData<PaginatedResults<T>>;
-
-export type PaginatedResults<T> = {
-	results: T[];
-	total: number;
-	page: number;
-	limit: number;
-	hasNext: boolean;
-	hasPrevious: boolean;
-};
-
 export { };
